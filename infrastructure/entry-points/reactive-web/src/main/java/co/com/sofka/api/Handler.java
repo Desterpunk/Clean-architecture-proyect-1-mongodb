@@ -17,6 +17,6 @@ public class Handler {
 
     public Mono<ServerResponse> createUser(ServerRequest serverRequest){
         return serverRequest.bodyToMono(User.class).flatMap(userUseCase::createUser).flatMap(currentUser -> ServerResponse.ok()
-                .bodyValue(currentUser));
+                .bodyValue(currentUser.getUserMessage()));
     }
 }
