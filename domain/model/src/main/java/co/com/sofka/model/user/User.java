@@ -12,4 +12,6 @@ public class User {
     private String id;
     private String userName;
     private String userLanguage;
+    private String userAction;
+    private String userMessage;
 }

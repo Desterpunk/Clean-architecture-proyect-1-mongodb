@@ -9,8 +9,6 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
-
 @Component
 @RequiredArgsConstructor
 public class Handler {
@@ -18,10 +16,7 @@ public class Handler {
     private final UserUseCase userUseCase;
 
     public Mono<ServerResponse> createUser(ServerRequest serverRequest){
-        Mono<User> user = serverRequest.bodyToMono(User.class);
-
-        return user.flatMap(userUseCase::createUser).flatMap(currentUser -> ServerResponse.created(URI
-                .create("/api/user".concat(currentUser.getId())))
-                .body(BodyInserters.fromValue(currentUser)));
+        return serverRequest.bodyToMono(User.class).flatMap(userUseCase::createUser).flatMap(currentUser -> ServerResponse.ok()
+                .bodyValue(currentUser));
     }
 }

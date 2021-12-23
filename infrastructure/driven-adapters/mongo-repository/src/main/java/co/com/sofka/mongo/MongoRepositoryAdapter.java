@@ -2,16 +2,15 @@ package co.com.sofka.mongo;
 
 import co.com.sofka.model.user.User;
 import co.com.sofka.model.user.gateways.UserRepository;
-import co.com.sofka.mongo.entities.SedeData;
+import co.com.sofka.mongo.entities.UserData;
 import co.com.sofka.mongo.helper.AdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Repository
-public class MongoRepositoryAdapter extends AdapterOperations<User, SedeData, String, MongoDBRepository>
-        implements UserRepository
-{
+public class MongoRepositoryAdapter extends AdapterOperations<User, UserData, String, MongoDBRepository>
+        implements UserRepository {
 
     public MongoRepositoryAdapter(MongoDBRepository repository, ObjectMapper mapper) {
         /**
@@ -24,7 +23,11 @@ public class MongoRepositoryAdapter extends AdapterOperations<User, SedeData, St
 
     @Override
     public Mono<User> createUser(User user) {
-        SedeData sedeData = SedeData.builder().userName(user.getUserName()).userLanguage(user.getUserLanguage()).build();
-        return repository.save(sedeData).map(this::toEntity);
+        UserData userData = UserData.builder().userName(user.getUserName())
+                .userLanguage(user.getUserLanguage())
+                .userAction(user.getUserAction())
+                .userMessage(user.getUserMessage())
+                .build();
+        return repository.save(userData).map(this::toEntity);
     }
 }

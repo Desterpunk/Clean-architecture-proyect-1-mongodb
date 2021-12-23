@@ -5,14 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+
 
 @Document("users")
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
-public class SedeData {
+public class UserData {
     private String id;
     private String userName;
     private String userLanguage;
+    private String userAction;
+    private String userMessage;
 }
