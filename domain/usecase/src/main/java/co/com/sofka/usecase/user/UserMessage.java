@@ -30,7 +30,7 @@ public class UserMessage {
         if (user.getUserAction().equalsIgnoreCase("despedir")){
             return "Hasta luego " + user.getUserName();
         }
-        return "No tenemos esa acción aún, Mil disculpas :)";
+        return "No tenemos esa accion aun, Mil disculpas :)";
     }
 
 }
